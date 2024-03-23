@@ -52,6 +52,9 @@
                                         id="email"
                                         name="email"
                                         placeholder="Enter your email or username"
+                                        @if (isset($_COOKIE['email']))
+                                            value="{{ $_COOKIE['email'] }}"
+                                        @endif
                                         autofocus />
                                     @error('email')
                                     <span class="text-danger">{{ $message }}</span>
@@ -71,7 +74,11 @@
                                             class="form-control @error('password') is-invalid @enderror"
                                             name="password"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                            aria-describedby="password" />
+                                            aria-describedby="password" 
+                                            @if (isset($_COOKIE['password']))
+                                            value="{{ $_COOKIE['password'] }}"
+                                            @endif
+                                            />
                                         <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                     </div>
                                     @error('password')
@@ -80,7 +87,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="remember-me" />
+                                        <input class="form-check-input" name="remember_me" type="checkbox" id="remember-me" />
                                         <label class="form-check-label" for="remember-me"> Remember Me </label>
                                     </div>
                                 </div>

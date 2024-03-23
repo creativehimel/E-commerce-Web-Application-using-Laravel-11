@@ -16,7 +16,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login')->name('login.post');
     Route::get('/register','viewRegister')->name('register');
     Route::post('/register','register')->name('register.post');
-    Route::get('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 // ================= Admin Route =================

@@ -53,6 +53,13 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            if(isset($request->remember_me)){
+                setcookie('email', $request->email, time() + (86400 * 30));
+                setcookie('password', $request->password, time() + (86400 * 30));
+            }else{
+                setcookie('email', '');
+                setcookie('password', '');
+            }
             toastr()->success('User logged in successfully');
             return redirect()->route($this->redirectTo());
         }else{

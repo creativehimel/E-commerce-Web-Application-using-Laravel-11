@@ -53,10 +53,11 @@
                                     <form action="{{route('cms-pages.destroy', $page->id)}}" method="post" style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
+                                        <button class="btn btn-sm btn-danger delete">
                                             <i class="ti ti-trash"></i>
                                         </button>
                                     </form>
+                                    
                                 </td>
                             </tr>
                         @endforeach
