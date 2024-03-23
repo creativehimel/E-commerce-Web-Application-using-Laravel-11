@@ -8,10 +8,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{route('admin.dashboard')}}">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        <a href="{{route('cms-pages.index')}}">CMS Pages</a>
-                    </li>
-                    <li class="breadcrumb-item active">Edit</li>
+                    <li class="breadcrumb-item active">CMS Pages</li>
                 </ol>
             </nav>
         </div>
@@ -24,22 +21,22 @@
                     <a href="{{route('cms-pages.index')}}" class="btn btn-danger">Back</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('cms-pages.store')}}" method="post">
+                    <form action="{{route('cms-pages.update', $cmsPage->id)}}" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Title<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{$cmsPage->title}}" placeholder="Enter page title">
                                     @error('title')
-                                    <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-12">
-
                                 <div class="mb-3">
                                     <label class="form-label">Slug<span class="text-danger">*</span></label>
                                     <div class="input-group input-group-merge">
@@ -71,6 +68,8 @@
                                     <input type="text" class="form-control" name="meta_title" value="{{$cmsPage->meta_title}}" placeholder="Enter meta title">
                                 </div>
                             </div>
+                            
+
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Meta Description</label>
@@ -103,4 +102,5 @@
             </div>
         </div>
     </div>
-@endsection
+
+    @endsection

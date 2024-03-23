@@ -5,7 +5,8 @@
     class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
     dir="ltr"
     data-theme="theme-default"
-    data-assets-path="../../assets/"
+    {{-- data-assets-path="" --}}
+    data-assets-path="../../../../../../../../assets/"
     data-template="vertical-menu-template-starter">
 <head>
     <meta charset="utf-8" />

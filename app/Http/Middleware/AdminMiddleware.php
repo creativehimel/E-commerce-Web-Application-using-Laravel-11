@@ -30,5 +30,9 @@ class AdminMiddleware
         if($userRole == '0'){
             return redirect()->route('home');
         }
+
+        if($userRole == '2'){
+            return redirect()->route('admin.dashboard');
+        }
     }
 }

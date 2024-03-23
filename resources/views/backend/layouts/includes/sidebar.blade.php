@@ -46,6 +46,24 @@
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
+        <li class="menu-item @if(Session::get('page') === 'manageUsers' || Session::get('page') === 'manageSubAdmin') open @endif">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-users-group"></i>
+                <div data-i18n="CMS Pages">Manage Users</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item @if(Session::get('page') === 'manageSubAdmin') active @endif">
+                    <a href="{{route('sub-admins.index')}}" class="menu-link">
+                        <div data-i18n="Sub Admin">Sub Admin</div>
+                    </a>
+                </li>
+                <li class="menu-item @if(Session::get('page') === 'manageUsers') active @endif">
+                    <a href="{{route('users.index')}}" class="menu-link">
+                        <div data-i18n="Users">Users</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="menu-item @if(Session::get('page') === 'cmsPages') active @endif">
             <a href="{{route('cms-pages.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-files"></i>

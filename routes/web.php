@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\ManageUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BackEnd\CMSPageController;
@@ -20,20 +21,22 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 // ================= Admin Route =================
-Route::prefix('admin')->group(function () {
-    Route::middleware('admin')->group(function () {
-        Route::controller(DashboardController::class)->group(function () {
-                Route::get('/dashboard', 'index')->name('admin.dashboard');
-                Route::get('/profile', 'getAdminDetails')->name('admin.profile');
-                Route::post('/profile/update', 'updateAdminProfile')->name('admin.profile.update');
-        });
-        Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('admin.password.update');
+Route::prefix('admin')->middleware('admin')->group(function () {
+    Route::controller(DashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('admin.dashboard');
+            Route::get('/profile', 'getAdminDetails')->name('admin.profile');
+            Route::post('/profile/update', 'updateAdminProfile')->name('admin.profile.update');
+    });
+    Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('admin.password.update');
 
-        Route::controller(CMSPageController::class)->group(function () {
-            Route::post('/cms-pages/change-status', 'changeStatus')->name('cms-pages.change-status');
-            Route::get('/{slug}/edit', 'editCMSPage')->name('cms-pages.editPage');
-        });
-        Route::resource('/cms-pages', CMSPageController::class);
-        
+    //Manage Cms Page Routes
+    Route::resource('/cms-pages', CMSPageController::class);
+    Route::post('/cms-pages/change-status', [CMSPageController::class, 'changeStatus'])->name('cms-pages.change-status');
+
+    //Manage Sub Admin Routes
+    Route::controller(ManageUserController::class)->group(function () {
+        Route::get('/sub-admins', 'getSubAdmin')->name('sub-admins.index');
+        Route::get('/sub-admins/create', 'createSubAdmin')->name('sub-admins.create');
+        Route::get('/users', 'getUser')->name('users.index'); 
     });
 });

@@ -47,16 +47,16 @@ class CMSPageController extends Controller
         return view('backend.pages.cmsPage.show', compact('cmsPage'));
     }
 
-    public function edit(string $slug)
+    public function edit(CmsPage $cmsPage)
     {
-        
+        // $cmsPage = CmsPage::where('slug', $slug)->first();
+        return view('backend.pages.cmsPage.edit', compact('cmsPage'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, CmsPage $cmsPage)
     {
-        $cmsPage = CmsPage::find($id);
         $request->validate([
-            'title' => 'required|unique:cms_pages,title,' . $cmsPage->id,
+            'title' => 'required|unique:cms_pages,title,' .$cmsPage->id,
             'slug' => 'required',
             'description' => 'required',
         ]);
@@ -88,11 +88,7 @@ class CMSPageController extends Controller
         toastr()->success('CMS Page Status Changed Successfully');
     }
 
-    public function editCMSPage($slug)
-    {
-        $cmsPage = CmsPage::where('slug', $slug)->first();
-        return view('backend.pages.cmsPage.edit', compact('cmsPage'));
-    }
+    
 
     
 
