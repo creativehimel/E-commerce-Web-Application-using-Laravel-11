@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->nullable();
+            $table->string('otp')->default('0');
             $table->integer('role')->default(0)->comment('0 = User, 1 = Admin, 2 = Super Admin');
             $table->boolean('status')->default(1)->comment('1 = Active, 0 = Inactive');
             $table->rememberToken();

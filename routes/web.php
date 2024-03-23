@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\BackEnd\CMSPageController;
+use App\Http\Controllers\BackEnd\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,16 +20,20 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 // ================= Admin Route =================
-// Route::prefix('admin')->group(function () {
-//     Route::middleware('admin')->group(function () {
-//         Route::controller(AdminDashboardController::class)->group(function () {
-//                 Route::get('/dashboard', 'index')->name('admin.dashboard');
-//                 Route::get('/profile', 'getAdminDetails')->name('admin.profile');
-//                 Route::post('/profile/update', 'updateAdminProfile')->name('admin.profile.update');
-//                 Route::post('/change-password', 'changePassword')->name('admin.password.update');
-//         });
-//         Route::resource('/cms-pages', CMSPageController::class);
-//         Route::post('/cms-pages/change-status', [CMSPageController::class, 'status'])->name('cms-pages.change-status');
-//         Route::get('/{slug}/edit', [CMSPageController::class, 'edit'])->name('cms-pages.edit');
-//     });
-// });
+Route::prefix('admin')->group(function () {
+    Route::middleware('admin')->group(function () {
+        Route::controller(DashboardController::class)->group(function () {
+                Route::get('/dashboard', 'index')->name('admin.dashboard');
+                Route::get('/profile', 'getAdminDetails')->name('admin.profile');
+                Route::post('/profile/update', 'updateAdminProfile')->name('admin.profile.update');
+        });
+        Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('admin.password.update');
+
+        Route::controller(CMSPageController::class)->group(function () {
+            Route::post('/cms-pages/change-status', 'status')->name('cms-pages.change-status');
+            Route::get('/{slug}/edit', 'edit')->name('cms-pages.edit');
+        });
+        Route::resource('/cms-pages', CMSPageController::class);
+        
+    });
+});
