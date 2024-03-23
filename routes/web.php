@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\ManageSubAdminController;
 use App\Http\Controllers\BackEnd\ManageUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -34,9 +35,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/cms-pages/change-status', [CMSPageController::class, 'changeStatus'])->name('cms-pages.change-status');
 
     //Manage Sub Admin Routes
-    Route::controller(ManageUserController::class)->group(function () {
-        Route::get('/sub-admins', 'getSubAdmin')->name('sub-admins.index');
-        Route::get('/sub-admins/create', 'createSubAdmin')->name('sub-admins.create');
-        Route::get('/users', 'getUser')->name('users.index'); 
-    });
+    Route::resource('/sub-admins', ManageSubAdminController::class);
+    Route::post('/sub-admins/change-status', [ManageSubAdminController::class, 'changeStatus'])->name('sub-admins.change-status');
+    //Manage Customer Routes
+    Route::resource('/manage-customers', ManageUserController::class);
 });

@@ -9,18 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class ManageUserController extends Controller
 {
-    public function getSubAdmin()
-    {
-        Session::put("page", 'manageSubAdmin');
-        $subAdmins = User::where('role', '2')->get();
-        return view('backend.pages.manageUser.subAdmin.index', compact('subAdmins'));
-    }
-    public function createSubAdmin()
-    {
-        
-        return view('backend.pages.manageUser.subAdmin.create');
-    }
-    public function getUser()
+    public function index()
     {
         Session::put("page", 'manageUsers');
         $users = User::where('role', '0')->get();

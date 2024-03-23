@@ -58,8 +58,8 @@
                     </a>
                 </li>
                 <li class="menu-item @if(Session::get('page') === 'manageUsers') active @endif">
-                    <a href="{{route('users.index')}}" class="menu-link">
-                        <div data-i18n="Users">Users</div>
+                    <a href="{{route('manage-customers.index')}}" class="menu-link">
+                        <div data-i18n="Users">Customers</div>
                     </a>
                 </li>
             </ul>

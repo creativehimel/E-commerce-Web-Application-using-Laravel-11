@@ -45,24 +45,22 @@
                                 <td>{{$admin->phone}}</td>
                                 <td>
                                     @if($admin->role == 2)
-                                        <span onclick="#" class="badge bg-label-primary me-1 cursor-pointer">Sub Admin</span>
-                                    @else
-                                        <span onclick="#" class="badge bg-label-danger me-1 cursor-pointer">Admin</span>
+                                        <span  class="badge bg-label-primary">Sub Admin</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if($admin->status == 1)
-                                        <span onclick="#" class="badge bg-label-success me-1 cursor-pointer">Active</span>
+                                        <span onclick="statusUpdate({{$admin->id}})" class="badge bg-label-success me-1 cursor-pointer">Active</span>
                                     @else
-                                        <span onclick="#" class="badge bg-label-danger me-1 cursor-pointer">Inactive</span>
+                                        <span onclick="statusUpdate({{$admin->id}})" class="badge bg-label-danger me-1 cursor-pointer">Inactive</span>
                                     @endif
                                 </td>
                                 <td>{{$admin->created_at->toFormattedDateString()}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-warning">
+                                    <a href="{{route('sub-admins.edit', $admin->id)}}" class="btn btn-sm btn-warning">
                                         <i class="ti ti-edit"></i>
                                     </a>
-                                    <form action="#" method="post" style="display: inline-block">
+                                    <form action="{{route('sub-admins.destroy', $admin->id)}}" method="post" style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-danger delete">
@@ -84,5 +82,20 @@
         $(document).ready(function () {
             $('#subAdmins').DataTable();
         })
+
+        
+    function statusUpdate(id) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('sub-admins.change-status') }}",
+            data: {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (response) {
+                window.location.reload();
+            }
+        });
+    }
     </script>
 @endsection
