@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\BackEnd;
 
-use App\Models\CmsPage;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CmsPage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class CMSPageController extends Controller
 {
@@ -14,6 +14,7 @@ class CMSPageController extends Controller
     {
         Session::put('page', 'cmsPages');
         $cmsPages = CmsPage::select('id', 'title', 'slug', 'status', 'created_at')->orderBy('id', 'desc')->get();
+
         return view('backend.pages.cmsPage.index', compact('cmsPages'));
     }
 
@@ -38,12 +39,14 @@ class CMSPageController extends Controller
             'meta_keywords' => $request->meta_keywords,
         ]);
         toastr()->success('CMS Page Created Successfully');
+
         return redirect()->route('cms-pages.index');
     }
 
     public function show($id)
     {
         $cmsPage = CmsPage::find($id);
+
         return view('backend.pages.cmsPage.show', compact('cmsPage'));
     }
 
@@ -56,7 +59,7 @@ class CMSPageController extends Controller
     public function update(Request $request, CmsPage $cmsPage)
     {
         $request->validate([
-            'title' => 'required|unique:cms_pages,title,' .$cmsPage->id,
+            'title' => 'required|unique:cms_pages,title,'.$cmsPage->id,
             'slug' => 'required',
             'description' => 'required',
         ]);
@@ -70,6 +73,7 @@ class CMSPageController extends Controller
             'meta_keywords' => $request->meta_keywords,
         ]);
         toastr()->success('CMS Page Updated Successfully');
+
         return redirect()->route('cms-pages.index');
     }
 
@@ -77,19 +81,15 @@ class CMSPageController extends Controller
     {
         CmsPage::find($id)->delete();
         toastr()->success('CMS Page Deleted Successfully');
+
         return redirect()->route('cms-pages.index');
     }
 
     public function changeStatus(Request $request)
     {
         $cmsPage = CmsPage::find($request->id);
-        $cmsPage->status = !$cmsPage->status;
+        $cmsPage->status = ! $cmsPage->status;
         $cmsPage->save();
         toastr()->success('CMS Page Status Changed Successfully');
     }
-
-    
-
-    
-
 }

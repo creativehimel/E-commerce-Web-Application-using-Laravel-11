@@ -16,22 +16,23 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::user()){
+        if (! Auth::user()) {
             toastr()->error('Please login first');
+
             return redirect()->route('login');
         }
 
         $userRole = Auth::user()->role;
 
-        if($userRole == '0'){
+        if ($userRole == '0') {
             return $next($request);
         }
 
-        if($userRole == '1'){
+        if ($userRole == '1') {
             return redirect()->route('admin.dashboard');
         }
 
-        if($userRole == '2'){
+        if ($userRole == '2') {
             return redirect()->route('admin.dashboard');
         }
     }
