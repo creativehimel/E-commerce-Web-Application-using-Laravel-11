@@ -30,8 +30,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('admin.password.update');
 
         Route::controller(CMSPageController::class)->group(function () {
-            Route::post('/cms-pages/change-status', 'status')->name('cms-pages.change-status');
-            Route::get('/{slug}/edit', 'edit')->name('cms-pages.edit');
+            Route::post('/cms-pages/change-status', 'changeStatus')->name('cms-pages.change-status');
+            Route::get('/{slug}/edit', 'editCMSPage')->name('cms-pages.editPage');
         });
         Route::resource('/cms-pages', CMSPageController::class);
         

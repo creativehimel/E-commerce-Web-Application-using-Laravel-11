@@ -47,7 +47,7 @@
                                 </td>
                                 <td>{{$page->created_at->toFormattedDateString()}}</td>
                                 <td>
-                                    <a href="{{route('cms-pages.edit', $page->slug)}}" class="btn btn-sm btn-warning">
+                                    <a href="{{route('cms-pages.editPage', $page->slug)}}" class="btn btn-sm btn-warning">
                                         <i class="ti ti-edit"></i>
                                     </a>
                                     <form action="{{route('cms-pages.destroy', $page->id)}}" method="post" style="display: inline-block">
